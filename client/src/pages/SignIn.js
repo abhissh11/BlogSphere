@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import OAuth from "../components/Oauth";
 import axios from "axios";
 import {
   signInStart,
@@ -17,7 +18,7 @@ const SignIn = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-  console.log(formData);
+  // console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -104,6 +105,7 @@ const SignIn = () => {
                   "Sign In"
                 )}
               </Button>
+              <OAuth />
             </form>
             <div className="flex gap-3 mt-5 text-sm ">
               <span>Don't have an Account?</span>
