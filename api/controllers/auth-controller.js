@@ -45,6 +45,7 @@ export const signUp = async (req, res, next) => {
   }
 };
 
+//sign in
 export const signIn = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -67,7 +68,7 @@ export const signIn = async (req, res, next) => {
 
     res
       .status(200)
-      .cookie("access_token", token, {
+      .cookie("jwtToken", token, {
         httpOnly: true,
       })
       .json(rest);

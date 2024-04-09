@@ -19,7 +19,6 @@ const SignIn = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
   // console.log(formData);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
@@ -33,6 +32,7 @@ const SignIn = () => {
         password: formData.password,
       });
       const data = await res.data;
+      // console.log(data);
 
       dispatch(signInSuccess(data));
       navigate("/");
