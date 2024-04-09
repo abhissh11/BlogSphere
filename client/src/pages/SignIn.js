@@ -1,50 +1,46 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
-import OAuth from "../components/Oauth";
-import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import OAuth from "./../components/Oauth";
 import {
   signInStart,
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
 
-const SignIn = () => {
+export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading, error: errMessage } = useSelector((state) => state.user);
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
-  // console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return dispatch(signInFailure("Please fill out all the fields!"));
+      return dispatch(signInFailure("Please fill all the fields"));
     }
     try {
       dispatch(signInStart());
-      const res = await axios.post("http://localhost:4000/api/auth/signin", {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
+      const res = await fetch("http://localhost:4000/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(formData),
       });
-      const data = await res.data;
-      // console.log(data);
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
+      }
 
-      dispatch(signInSuccess(data));
-      navigate("/");
-
-      return data;
+      if (res.ok) {
+        dispatch(signInSuccess(data));
+        navigate("/");
+      }
     } catch (error) {
       dispatch(signInFailure(error.message));
-      if (error) {
-        dispatch(signInFailure(error.response.data.message));
-        // setErrMessage(error.response.data.message);
-        // setLoading(false);
-      }
     }
   };
 
@@ -113,9 +109,9 @@ const SignIn = () => {
                 Sign Up
               </Link>
             </div>
-            {errMessage && (
+            {errorMessage && (
               <Alert className="mt-5" color={"failure"}>
-                {errMessage}
+                {errorMessage}
               </Alert>
             )}
           </div>
@@ -123,6 +119,4 @@ const SignIn = () => {
       </div>
     </>
   );
-};
-
-export default SignIn;
+}

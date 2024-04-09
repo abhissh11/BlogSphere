@@ -1,12 +1,10 @@
-import { errorHandler } from "../utils/error.js";
 import bcryptjs from "bcryptjs";
-import User from "./../models/user-model.js";
+import { errorHandler } from "../utils/error.js";
+import User from "../models/user-model.js";
 
-export const test =
-  ("/test",
-  (req, res) => {
-    res.json({ msg: "API Working" });
-  });
+export const test = (req, res) => {
+  res.json({ message: "API is working!" });
+};
 
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {

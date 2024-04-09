@@ -117,6 +117,7 @@ export default function DashProfile() {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify(formData),
         }
       );

@@ -68,7 +68,7 @@ export const signIn = async (req, res, next) => {
 
     res
       .status(200)
-      .cookie("jwtToken", token, {
+      .cookie("access_token", token, {
         httpOnly: true,
       })
       .json(rest);

@@ -9,10 +9,25 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.get("/set-cookie", (req, res) => {
+  // Set cookie with SameSite=None attribute
+  res.cookie("myCookie", "cookieValue", {
+    sameSite: "none",
+    secure: true, // Make sure to set secure to true if your application is served over HTTPS
+    // Other cookie options such as maxAge, domain, etc.
+  });
+  res.send("Cookie set successfully");
+});
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
