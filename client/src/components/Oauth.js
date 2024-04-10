@@ -18,11 +18,15 @@ export default function OAuth() {
     try {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
       console.log(resultsFromGoogle);
-      const res = await axios.post("http://localhost:4000/api/auth/google", {
-        name: resultsFromGoogle.user.displayName,
-        email: resultsFromGoogle.user.email,
-        googlePhotoURL: resultsFromGoogle.user.photoURL,
-      });
+      const res = await axios.post(
+        "http://localhost:4000/api/auth/google",
+        {
+          name: resultsFromGoogle.user.displayName,
+          email: resultsFromGoogle.user.email,
+          googlePhotoURL: resultsFromGoogle.user.photoURL,
+        },
+        { withCredentials: true }
+      );
       const data = await res.data;
       console.log(data);
       dispatch(signInSuccess(data));
