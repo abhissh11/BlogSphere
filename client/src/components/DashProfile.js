@@ -22,9 +22,10 @@ import {
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 // import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function DashProfile() {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imgFile, setImgFile] = useState(null);
   const [imgProfileURL, setImgProfileURL] = useState(null);
   const [imgFileUploadProgress, setImgUploadProgress] = useState(null);
@@ -243,9 +244,25 @@ export default function DashProfile() {
           placeholder="Password"
           onChange={handleChange}
         />
-        <Button type="submit" gradientDuoTone={"purpleToBlue"} outline>
-          Update
+        <Button
+          type="submit"
+          gradientDuoTone={"purpleToBlue"}
+          outline
+          disabled={loading || imageFileUploading}
+        >
+          {loading ? "Loading..." : "Update"}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to="/create-post">
+            <Button
+              type="button"
+              gradientDuoTone={"purpleToPink"}
+              className="w-full"
+            >
+              Create new Blog
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 mt-5 flex justify-between">
         <span
