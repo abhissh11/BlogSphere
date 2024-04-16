@@ -1,11 +1,12 @@
 import { Alert, Button, TextInput } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Comment from "./Comment";
 
 export default function CommentSection({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [comment, setComment] = useState("");
   const [postComments, setPostComments] = useState([]);
   const [commentError, setCommentError] = useState(null);
@@ -56,6 +57,46 @@ export default function CommentSection({ postId }) {
     };
     getComments();
   }, [postId]);
+
+  const handleLike = async (commentId) => {
+    try {
+      if (!currentUser) {
+        navigate("/sign-in");
+        return;
+      }
+      const res = await fetch(
+        `http://localhost:4000/api/comment/likeComment/${commentId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+        }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setPostComments(
+          postComments.map((comment) =>
+            comment._id === commentId
+              ? {
+                  ...comment,
+                  likes: data.likes,
+                  numberOfLike: data.likes.length,
+                }
+              : comment
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEdit = async (comment, editedContent) => {
+    setPostComments(
+      postComments.map((c) =>
+        c._id === comment._id ? { ...c, content: editedContent } : c
+      )
+    );
+  };
 
   return (
     <div className="max-w-2xl w-full mx-auto py-3">
@@ -120,7 +161,12 @@ export default function CommentSection({ postId }) {
             </div>
           </div>
           {postComments.map((comment) => (
-            <Comment key={comment._id} comment={comment} />
+            <Comment
+              key={comment._id}
+              comment={comment}
+              onLike={handleLike}
+              onEdit={handleEdit}
+            />
           ))}
         </>
       )}
