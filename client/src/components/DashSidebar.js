@@ -5,6 +5,7 @@ import {
   HiArrowSmRight,
   HiDocumentText,
   HiOutlineUserGroup,
+  HiAnnotation,
 } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -43,33 +44,33 @@ export default function DashSidebar() {
   };
 
   return (
-    <div className="w-full">
-      <Sidebar className="w-full md:w-56 ">
-        <Sidebar.Items>
-          <Sidebar.ItemGroup className="">
-            <Link to={"/dashboard?tab=profile"}>
-              <Sidebar.Item
-                active={tab === "profile"}
-                icon={HiUser}
-                label={currentUser.isAdmin ? "Admin" : "User"}
-                labelColor="dark"
-                className="mb-2"
-                as="div"
-              >
-                Profile
-              </Sidebar.Item>
-              {currentUser.isAdmin && (
-                <Link to={"/dashboard?tab=posts"}>
-                  <Sidebar.Item
-                    active={tab === "posts"}
-                    icon={HiDocumentText}
-                    as="div"
-                  >
-                    Posts
-                  </Sidebar.Item>
-                </Link>
-              )}
-              {currentUser.isAdmin && (
+    <Sidebar className="w-full md:w-56 ">
+      <Sidebar.Items>
+        <Sidebar.ItemGroup className="flex flex-col gap-1">
+          <Link to={"/dashboard?tab=profile"}>
+            <Sidebar.Item
+              active={tab === "profile"}
+              icon={HiUser}
+              label={currentUser.isAdmin ? "Admin" : "User"}
+              labelColor="dark"
+              className="mb-2"
+              as="div"
+            >
+              Profile
+            </Sidebar.Item>
+            {currentUser.isAdmin && (
+              <Link to={"/dashboard?tab=posts"}>
+                <Sidebar.Item
+                  active={tab === "posts"}
+                  icon={HiDocumentText}
+                  as="div"
+                >
+                  Posts
+                </Sidebar.Item>
+              </Link>
+            )}
+            {currentUser.isAdmin && (
+              <>
                 <Link to={"/dashboard?tab=users"}>
                   <Sidebar.Item
                     active={tab === "users"}
@@ -79,19 +80,28 @@ export default function DashSidebar() {
                     Users
                   </Sidebar.Item>
                 </Link>
-              )}
-              <Sidebar.Item
-                icon={HiArrowSmRight}
-                className="cursor-pointer"
-                as="div"
-                onClick={handleSignout}
-              >
-                Sign Out
-              </Sidebar.Item>
-            </Link>
-          </Sidebar.ItemGroup>
-        </Sidebar.Items>
-      </Sidebar>
-    </div>
+                <Link to={"/dashboard?tab=comments"}>
+                  <Sidebar.Item
+                    active={tab === "comments"}
+                    icon={HiAnnotation}
+                    as="div"
+                  >
+                    Comments
+                  </Sidebar.Item>
+                </Link>
+              </>
+            )}
+            <Sidebar.Item
+              icon={HiArrowSmRight}
+              className="cursor-pointer"
+              as="div"
+              onClick={handleSignout}
+            >
+              Sign Out
+            </Sidebar.Item>
+          </Link>
+        </Sidebar.ItemGroup>
+      </Sidebar.Items>
+    </Sidebar>
   );
 }
