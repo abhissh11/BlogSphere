@@ -4,12 +4,15 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
+import PostCard from "../components/PostCard";
 
 export default function PostPage() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
+  const [recentPosts, setRecentPosts] = useState(null);
+  console.log(recentPosts);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -40,6 +43,27 @@ export default function PostPage() {
     };
     fetchPost();
   }, [postSlug]);
+
+  useEffect(() => {
+    try {
+      const fetchRecentPost = async () => {
+        const res = await fetch(
+          `http://localhost:4000/api/post/getPosts?limit=3`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setRecentPosts(data.posts);
+        }
+      };
+      fetchRecentPost();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
+
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -79,6 +103,15 @@ export default function PostPage() {
       </div>
       <div>
         <CommentSection postId={post._id} />
+      </div>
+      <div className="flex flex-col justify-center items-center mb-5 w-full">
+        <h1 className="text-xl font-semibold font-mono mt-5">
+          Recent articles
+        </h1>
+        <div className="flex flex-wrap gap-5 justify-center mt-5 ">
+          {recentPosts &&
+            recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
+        </div>
       </div>
     </main>
   );
