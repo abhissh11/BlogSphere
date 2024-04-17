@@ -2,26 +2,43 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CallToAction from "./../components/CallToAction";
 import PostCard from "./../components/PostCard";
-import { HiArrowNarrowRight, HiArrowNarrowUp } from "react-icons/hi";
-import { Button } from "flowbite-react";
+import { Button, Spinner } from "flowbite-react";
 
 const Home = () => {
   const [posts, setPosts] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     try {
       const fetchPosts = async () => {
+        setLoading(true);
         const res = await fetch(`http://localhost:4000/api/post/getPosts`, {
           credentials: "include",
         });
         const data = await res.json();
-        setPosts(data.posts);
+        if (!res.ok) {
+          setLoading(false);
+          return;
+        }
+        if (res.ok) {
+          setPosts(data.posts);
+          setLoading(false);
+        }
+        // setPosts(data.posts);
       };
       fetchPosts();
     } catch (error) {
       console.log(error.message);
     }
   }, []);
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner size={"xl"} />
+      </div>
+    );
+
   return (
     <div>
       <div className="flex flex-col gap-6 p-28 px-3  max-w-6xl mx-auto ">
@@ -29,7 +46,7 @@ const Home = () => {
           Welcome to blogSphere - <br />{" "}
           <span className=""> Where Ideas Take Flight...</span>
         </h1>
-        <p className="text-gray-600 text-xs sm:text-sm lg:w-2/3">
+        <p className="text-gray-500 text-xs sm:text-sm lg:w-2/3">
           Explore a myriad of topics ranging from technology trends to travel
           escapades, from culinary adventures to philosophical musings. Whether
           you're seeking practical advice, thought-provoking insights, or simply
