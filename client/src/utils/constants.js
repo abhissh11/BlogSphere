@@ -1,1 +1,1 @@
-export const server_URL = "http://localhost:4000";
+export const server_URL = "https://blog-sphere-6oty.onrender.com";

@@ -21,7 +21,7 @@ const __dirname = path.resolve();
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://blog-sphere-6oty.onrender.com/",
     credentials: true,
   })
 );
