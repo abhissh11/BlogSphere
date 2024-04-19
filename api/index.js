@@ -7,8 +7,16 @@ import postRouter from "./routes/post-route.js";
 import commentRouter from "./routes/comment-route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 dotenv.config();
+
+mongoose
+  .connect(process.env.MONGO)
+  .then(() => console.log("MongoDb Connected"))
+  .catch((err) => console.log(err));
+
+const __dirname = path.resolve();
 
 const app = express();
 app.use(
@@ -36,13 +44,14 @@ app.use("/api/auth", authRouter);
 app.use("/api/post", postRouter);
 app.use("/api/comment", commentRouter);
 
-mongoose
-  .connect(process.env.MONGO)
-  .then(() => console.log("MongoDb Connected"))
-  .catch((err) => console.log(err));
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(4000, () => {
-  console.log(`server running on PORT 4000`);
+  console.log(`server running`);
 });
 
 app.use((err, req, res, next) => {
