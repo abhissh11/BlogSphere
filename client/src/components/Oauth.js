@@ -7,6 +7,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import { server_URL } from "./../utils/constants";
 
 export default function OAuth() {
   const dispatch = useDispatch();
@@ -17,9 +18,9 @@ export default function OAuth() {
     provider.setCustomParameters({ prompt: "select_account" });
     try {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
-      console.log(resultsFromGoogle);
+      // console.log(resultsFromGoogle);
       const res = await axios.post(
-        "http://localhost:4000/api/auth/google",
+        `${server_URL}/api/auth/google`,
         {
           name: resultsFromGoogle.user.displayName,
           email: resultsFromGoogle.user.email,
@@ -28,7 +29,7 @@ export default function OAuth() {
         { withCredentials: true }
       );
       const data = await res.data;
-      console.log(data);
+      // console.log(data);
       dispatch(signInSuccess(data));
       navigate("/");
       return data;

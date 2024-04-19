@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { server_URL } from "../utils/constants";
 
 export default function DashSidebar() {
   const { currentUser } = useSelector((state) => state.user);
@@ -30,7 +31,7 @@ export default function DashSidebar() {
   //handle signout
   const handleSignout = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/user/signout`, {
+      const res = await fetch(`${server_URL}/api/user/signout`, {
         method: "POST",
       });
       const data = await res.json();

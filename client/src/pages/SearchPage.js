@@ -2,6 +2,7 @@ import { Button, Select, Spinner, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../components/PostCard";
+import { server_URL } from "../utils/constants";
 
 export default function SearchPage() {
   const [sidebarData, setSidebarData] = useState({
@@ -36,7 +37,7 @@ export default function SearchPage() {
       setLoading(true);
       const searchQuery = urlParams.toString();
       const res = await fetch(
-        `http://localhost:4000/api/post/getposts?${searchQuery}`,
+        `${server_URL}/api/post/getposts?${searchQuery}`,
         {
           credentials: "include",
         }
@@ -89,9 +90,7 @@ export default function SearchPage() {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("startIndex", startIndex);
     const searchQuery = urlParams.toString();
-    const res = await fetch(
-      `http://localhost:4000/api/post/getposts?${searchQuery}`
-    );
+    const res = await fetch(`${server_URL}/api/post/getposts?${searchQuery}`);
     if (!res.ok) {
       return;
     }

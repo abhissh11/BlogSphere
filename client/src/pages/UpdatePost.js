@@ -13,6 +13,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { server_URL } from "../utils/constants";
 
 export default function UpdatePost() {
   const [file, setFile] = useState(null);
@@ -30,7 +31,7 @@ export default function UpdatePost() {
     try {
       const fetchPost = async () => {
         const res = await fetch(
-          `http://localhost:4000/api/post/getPosts?postId=${postId}`
+          `${server_URL}/api/post/getPosts?postId=${postId}`
         );
         const data = await res.json();
         if (!res.ok) {
@@ -89,7 +90,7 @@ export default function UpdatePost() {
     e.preventDefault();
     try {
       const res = await fetch(
-        `http://localhost:4000/api/post/updatePost/${formData._id}/${currentUser._id}/`,
+        `${server_URL}/api/post/updatePost/${formData._id}/${currentUser._id}/`,
         {
           method: "PUT",
           headers: {

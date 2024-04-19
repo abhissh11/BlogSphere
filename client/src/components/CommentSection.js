@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Comment from "./Comment";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { server_URL } from "./../utils/constants";
 
 export default function CommentSection({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -19,7 +20,7 @@ export default function CommentSection({ postId }) {
     if (comment.length > 200) return;
 
     try {
-      const res = await fetch("http://localhost:4000/api/comment/create", {
+      const res = await fetch(`${server_URL}/api/comment/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -45,7 +46,7 @@ export default function CommentSection({ postId }) {
     const getComments = async () => {
       try {
         const res = await fetch(
-          `http://localhost:4000/api/comment/getPostComments/${postId}`,
+          `${server_URL}/api/comment/getPostComments/${postId}`,
           {
             credentials: "include",
           }
@@ -68,7 +69,7 @@ export default function CommentSection({ postId }) {
         return;
       }
       const res = await fetch(
-        `http://localhost:4000/api/comment/likeComment/${commentId}`,
+        `${server_URL}/api/comment/likeComment/${commentId}`,
         {
           method: "PUT",
           credentials: "include",
@@ -109,7 +110,7 @@ export default function CommentSection({ postId }) {
         return;
       }
       const res = await fetch(
-        `http://localhost:4000/api/comment/deleteComment/${commentId}`,
+        `${server_URL}/api/comment/deleteComment/${commentId}`,
         {
           method: "DELETE",
           credentials: "include",

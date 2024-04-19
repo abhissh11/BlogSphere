@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import CallToAction from "./../components/CallToAction";
 import PostCard from "./../components/PostCard";
 import { Button, Spinner } from "flowbite-react";
+import { server_URL } from "../utils/constants";
 
 const Home = () => {
   const [posts, setPosts] = useState();
@@ -12,7 +13,7 @@ const Home = () => {
     try {
       const fetchPosts = async () => {
         setLoading(true);
-        const res = await fetch(`http://localhost:4000/api/post/getPosts`, {
+        const res = await fetch(`${server_URL}/api/post/getPosts`, {
           credentials: "include",
         });
         const data = await res.json();

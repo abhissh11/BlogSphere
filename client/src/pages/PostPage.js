@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import PostCard from "../components/PostCard";
+import { server_URL } from "../utils/constants";
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -12,14 +13,13 @@ export default function PostPage() {
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
-  console.log(recentPosts);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `http://localhost:4000/api/post/getPosts?slug=${postSlug}`,
+          `${server_URL}/api/post/getPosts?slug=${postSlug}`,
           {
             credentials: "include",
           }
@@ -47,12 +47,9 @@ export default function PostPage() {
   useEffect(() => {
     try {
       const fetchRecentPost = async () => {
-        const res = await fetch(
-          `http://localhost:4000/api/post/getPosts?limit=3`,
-          {
-            credentials: "include",
-          }
-        );
+        const res = await fetch(`${server_URL}/api/post/getPosts?limit=3`, {
+          credentials: "include",
+        });
         const data = await res.json();
         if (res.ok) {
           setRecentPosts(data.posts);

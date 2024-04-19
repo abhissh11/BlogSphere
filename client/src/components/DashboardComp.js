@@ -9,6 +9,7 @@ import {
   HiOutlineUserGroup,
 } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { server_URL } from "../utils/constants";
 
 export default function DashboardComp() {
   const [users, setusers] = useState();
@@ -25,12 +26,9 @@ export default function DashboardComp() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:4000/api/user/getUsers?limit=5`,
-          {
-            credentials: "include",
-          }
-        );
+        const res = await fetch(`${server_URL}/api/user/getUsers?limit=5`, {
+          credentials: "include",
+        });
         const data = await res.json();
         if (res.ok) {
           setusers(data.users);
@@ -43,12 +41,9 @@ export default function DashboardComp() {
     };
     const fetchPosts = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:4000/api/post/getPosts?limit=5`,
-          {
-            credentials: "include",
-          }
-        );
+        const res = await fetch(`${server_URL}/api/post/getPosts?limit=5`, {
+          credentials: "include",
+        });
         const data = await res.json();
         if (res.ok) {
           setPosts(data.posts);
@@ -62,7 +57,7 @@ export default function DashboardComp() {
     const fetchComments = async () => {
       try {
         const res = await fetch(
-          `http://localhost:4000/api/comment/getComments?limit=5`,
+          `${server_URL}/api/comment/getComments?limit=5`,
           {
             credentials: "include",
           }

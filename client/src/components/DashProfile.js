@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 // import axios from "axios";
 import { Link } from "react-router-dom";
+import { server_URL } from "../utils/constants";
 
 export default function DashProfile() {
   const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -118,7 +119,7 @@ export default function DashProfile() {
     try {
       dispatch(updateStart());
       const res = await fetch(
-        `http://localhost:4000/api/user/update/${currentUser._id}`,
+        `${server_URL}/api/user/update/${currentUser._id}`,
         {
           method: "PUT",
           headers: {
@@ -148,7 +149,7 @@ export default function DashProfile() {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(
-        `http://localhost:4000/api/user/delete/${currentUser._id}`,
+        `${server_URL}/api/user/delete/${currentUser._id}`,
         {
           method: "DELETE",
         }
@@ -166,7 +167,7 @@ export default function DashProfile() {
   //handle signout
   const handleSignout = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/user/signout`, {
+      const res = await fetch(`${server_URL}/api/user/signout`, {
         method: "POST",
       });
       const data = await res.json();

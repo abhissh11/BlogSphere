@@ -14,6 +14,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
+import { server_URL } from "./../utils/constants";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -35,7 +36,7 @@ const Header = () => {
   //handle signout
   const handleSignout = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/user/signout`, {
+      const res = await fetch(`${server_URL}/api/user/signout`, {
         method: "POST",
       });
       const data = await res.json();

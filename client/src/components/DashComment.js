@@ -4,6 +4,7 @@ import { Button, Table, Modal, TableBody } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { server_URL } from "../utils/constants";
 
 export default function DashComments() {
   const { currentUser } = useSelector((state) => state.user);
@@ -17,12 +18,9 @@ export default function DashComments() {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:4000/api/comment/getComments`,
-          {
-            credentials: "include",
-          }
-        );
+        const res = await fetch(`${server_URL}/api/comment/getComments`, {
+          credentials: "include",
+        });
         const data = await res.json();
         // console.log(data);
         if (res.ok) {
@@ -46,7 +44,7 @@ export default function DashComments() {
     const startIndex = comments.length;
     try {
       const res = await fetch(
-        `http://localhost:4000/api/user/getComments?startIndex=${startIndex}`,
+        `${server_URL}/api/user/getComments?startIndex=${startIndex}`,
         {
           credentials: "include",
         }
@@ -67,7 +65,7 @@ export default function DashComments() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `http://localhost:4000/api/comment/deleteComment/${commentIdToDelete}`,
+        `${server_URL}/api/comment/deleteComment/${commentIdToDelete}`,
         {
           method: "DELETE",
           credentials: "include",

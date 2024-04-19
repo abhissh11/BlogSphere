@@ -12,6 +12,7 @@ import { app } from "./../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
+import { server_URL } from "../utils/constants";
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);
@@ -62,7 +63,7 @@ export default function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:4000/api/post/create`, {
+      const res = await fetch(`${server_URL}/api/post/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

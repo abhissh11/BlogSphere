@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import axios from "axios";
 import OAuth from "../components/Oauth";
+import { server_URL } from "./../utils/constants";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -12,7 +13,6 @@ const SignUp = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-  console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const SignUp = () => {
     try {
       setLoading(true);
       setErrMessage(null);
-      const res = await axios.post("http://localhost:4000/api/auth/signup", {
+      const res = await axios.post(`${server_URL}/api/auth/signup`, {
         username: formData.username,
         email: formData.email,
         password: formData.password,

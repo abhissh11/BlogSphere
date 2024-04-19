@@ -4,6 +4,7 @@ import { Button, Table, Modal, TableBody } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { server_URL } from "../utils/constants";
 
 export default function DashUsers() {
   const { currentUser } = useSelector((state) => state.user);
@@ -17,7 +18,7 @@ export default function DashUsers() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/user/getUsers`, {
+        const res = await fetch(`${server_URL}/api/user/getUsers`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -43,7 +44,7 @@ export default function DashUsers() {
     const startIndex = users.length;
     try {
       const res = await fetch(
-        `http://localhost:4000/api/user/getUsers?startIndex=${startIndex}`,
+        `${server_URL}/api/user/getUsers?startIndex=${startIndex}`,
         {
           credentials: "include",
         }
@@ -63,7 +64,7 @@ export default function DashUsers() {
   const HandleDeleteUser = async () => {
     try {
       const res = await fetch(
-        `http://localhost:4000/api/user/delete/${userIdToDelete}`,
+        `${server_URL}/api/user/delete/${userIdToDelete}`,
         {
           method: "DELETE",
           credentials: "include",

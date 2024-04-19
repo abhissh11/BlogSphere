@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Button, Table, Modal, TableBody } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { server_URL } from "../utils/constants";
 
 export default function DashPosts() {
   const { currentUser } = useSelector((state) => state.user);
@@ -17,7 +18,7 @@ export default function DashPosts() {
     const getPosts = async () => {
       try {
         const res = await fetch(
-          `http://localhost:4000/api/post/getPosts?userId=${currentUser._id}`
+          `${server_URL}/api/post/getPosts?userId=${currentUser._id}`
         );
         const data = await res.json();
         // console.log(data);
@@ -42,7 +43,7 @@ export default function DashPosts() {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `http://localhost:4000/api/post/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `${server_URL}/api/post/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -60,7 +61,7 @@ export default function DashPosts() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `http://localhost:4000/api/post/deletePost/${postIdToDelete}/${currentUser._id}`,
+        `${server_URL}/api/post/deletePost/${postIdToDelete}/${currentUser._id}`,
         {
           method: "DELETE",
           credentials: "include",
