@@ -26,8 +26,9 @@ export default function CallToAction() {
       </div>
       <div className="p-7 flex-1">
         <img
-          src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230202143636/NEXT-js-tutorial-1.png"
+          src="https://static-cse.canva.com/blob/1218229/rawpixel669610unsplash1.jpg"
           alt="img"
+          className=" border-2 border-teal-500 rounded-tl-3xl rounded-br-3xl "
         />
       </div>
     </div>

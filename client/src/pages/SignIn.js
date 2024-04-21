@@ -61,9 +61,11 @@ export default function SignIn() {
               </span>
             </Link>
             <p className="text-sm mt-5">
-              This the Blog Sphere app created by Abhishek in order to learn
-              MERN Stack.... This the Blog Sphere app created by Abhishek in
-              order to learn MERN Stack
+              Welcome to blogSphere, your premier destination for insightful
+              articles and captivating content! Explore topics like the MERN
+              stack, Next.js, and cutting-edge AI advancements. But that's just
+              the beginning! Our platform also offers engaging content on life's
+              intricacies, movie reviews, and web show highlights.
             </p>
           </div>
           <div className="flex-1">

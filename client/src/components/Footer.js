@@ -25,18 +25,18 @@ const FooterComp = () => {
                   <Footer.Title title={"About"} />
                   <Footer.LinkGroup col>
                     <Footer.Link
-                      href="https://github.com/dev-abhishekkr"
+                      href="#"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Github
+                      BlogSphere
                     </Footer.Link>
                     <Footer.Link
                       href="https://github.com/dev-abhishekkr"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      LinkedIn
+                      Kolakata, India
                     </Footer.Link>
                   </Footer.LinkGroup>
                 </div>
@@ -48,14 +48,14 @@ const FooterComp = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      xxxxxx
+                      Github
                     </Footer.Link>
                     <Footer.Link
-                      href="https://github.com/dev-abhishekkr"
+                      href="https://www.linkedin.com/in/abhishek-kumar-0b6b1a211/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      yyyyyyyyy
+                      LinkedIn
                     </Footer.Link>
                   </Footer.LinkGroup>
                 </div>
@@ -74,7 +74,7 @@ const FooterComp = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      copyright @bioSphere
+                      copyright @blogSphere
                     </Footer.Link>
                   </Footer.LinkGroup>
                 </div>
@@ -84,7 +84,7 @@ const FooterComp = () => {
             <div>
               <Footer.Copyright
                 href="#"
-                by="BlogSphere - Abhishek"
+                by="BlogSphere | All rights reserved."
                 year={new Date().getFullYear()}
               />
             </div>
