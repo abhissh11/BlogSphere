@@ -44,6 +44,10 @@ const SignUp = () => {
     }
   };
 
+  setTimeout(() => {
+    setErrMessage(null);
+  }, 7000);
+
   return (
     <>
       <div className="min-h-screen mt-20">
