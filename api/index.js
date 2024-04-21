@@ -21,7 +21,7 @@ const __dirname = path.resolve();
 const app = express();
 app.use(
   cors({
-    origin: "https://blog-sphere-6oty.onrender.com/",
+    origin: "https://blogsphere-h6tw.onrender.com/",
     credentials: true,
   })
 );

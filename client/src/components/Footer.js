@@ -36,7 +36,7 @@ const FooterComp = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Kolakata, India
+                      Kolkata, India
                     </Footer.Link>
                   </Footer.LinkGroup>
                 </div>

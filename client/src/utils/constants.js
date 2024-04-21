@@ -1,1 +1,1 @@
-export const server_URL = "https://blog-sphere-6oty.onrender.com";
+export const server_URL = "https://blogsphere-h6tw.onrender.com/";
