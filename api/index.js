@@ -19,9 +19,20 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
+const allowedOrigins = [
+  "https://blogsphere-h6tw.onrender.com",
+  "https://blog-sphere-nu.vercel.app"
+];
+
 app.use(
   cors({
-    origin: "https://blogsphere-h6tw.onrender.com/",
+    origin: (origin, callback) => {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
